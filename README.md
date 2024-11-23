@@ -1,17 +1,17 @@
 # Location Tracking API
 
-Location Tracking API, kullanıcıların konum bilgilerini takip etmek ve yönetmek için geliştirilmiş bir REST API projesidir.
+Location Tracking API is a REST API project developed to track and manage user location information.
 
-## Özellikler
+## Features
 
-- Kullanıcı konumlarını kaydetme ve takip etme
-- Gerçek zamanlı konum güncellemeleri
-- Geçmiş konum verilerini sorgulama
-- Prometheus ile metrik toplama
-- Grafana ile metrik görselleştirme
-- Celery ile asenkron görev yönetimi
+- Save and track user locations
+- Real-time location updates
+- Query historical location data
+- Collect metrics with Prometheus
+- Visualize metrics with Grafana
+- Manage asynchronous tasks with Celery
 
-## Teknolojiler
+## Technologies
 
 - Python 3.9
 - Django 4.2
@@ -23,49 +23,43 @@ Location Tracking API, kullanıcıların konum bilgilerini takip etmek ve yönet
 - Prometheus
 - Grafana
 
-## Hızlı Başlangıç
+## Quick Start
 
-1. Projeyi klonlayın:
+1. Clone the project:
 bash
 git clone https://github.com/ogunkirikci/location-tracking.git
 cd location-tracking
-2. Docker container'larını başlatın:
+2. Start Docker containers:
 bash
 docker-compose -f docker/docker-compose.yml up --build
 
-3. API'ye erişin:
+3. Access the API:
 - API: http://localhost:8000/api/v1/
 - Swagger: http://localhost:8000/api/swagger/
 - Metrics: http://localhost:8000/metrics/
 - Grafana: http://localhost:3000
 
-## Dokümantasyon
+## Documentation
 
-Detaylı dokümantasyon için [docs](docs/) klasörüne bakın:
+For detailed documentation, please refer to the [docs](docs/) folder:
 
-- [Kurulum Rehberi](docs/development/setup.md)
-- [Katkıda Bulunma](docs/development/contributing.md)
-- [Deployment](docs/deployment/installation.md)
-- [Yapılandırma](docs/deployment/configuration.md)
+- [Setup Guide](docs/development/setup.md)
 
 ## API Endpoints
 
-- `POST /api/v1/token/` - JWT token alma
-- `POST /api/v1/token/refresh/` - JWT token yenileme
-- `GET /api/v1/locations/` - Konum listesi
-- `POST /api/v1/locations/` - Yeni konum ekleme
-- `GET /api/v1/locations/{id}/` - Konum detayı
+- `POST /api/v1/token/` - Get JWT token
+- `POST /api/v1/token/refresh/` - JWT token refresh
+- `GET /api/v1/locations/` - Location list
+- `POST /api/v1/locations/` - Add new location
+- `GET /api/v1/locations/{id}/` - Location detail
 
 ## Monitoring
 
-- Prometheus metrikleri: http://localhost:8000/metrics/
+- Prometheus metrics: http://localhost:8000/metrics/
 - Grafana dashboards: http://localhost:3000
 
-## Lisans
 
-Bu proje [MIT](LICENSE) lisansı altında lisanslanmıştır.
+## Contact
 
-## İletişim
-
-- Geliştirici: [Ogün Kırıkçı](mailto:ognkrkci@gmail.com)
-- Proje: [GitHub Repository](https://github.com/ogunkirikci/location-tracking)
+- Developer: [Ogün Kırıkçı](mailto:ognkrkci@gmail.com)
+- Project: [GitHub Repository](https://github.com/ogunkirikci/location-tracking)
