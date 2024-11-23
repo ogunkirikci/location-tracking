@@ -1,23 +1,21 @@
+from drf_spectacular.utils import OpenApiExample, extend_schema_serializer
+
 from rest_framework import serializers
+
 from .models import LocationData
-from drf_spectacular.utils import extend_schema_serializer, OpenApiExample
+
 
 class LocationDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = LocationData
-        fields = ['id', 'device_id', 'latitude', 'longitude', 'speed', 'timestamp']
-        read_only_fields = ['timestamp']
+        fields = ["id", "device_id", "latitude", "longitude", "speed", "timestamp"]
+        read_only_fields = ["timestamp"]
 
     @extend_schema_serializer(
         examples=[
             OpenApiExample(
-                'Valid location data example',
-                value={
-                    'device_id': 'device123',
-                    'latitude': 41.0082,
-                    'longitude': 28.9784,
-                    'speed': 50.5
-                },
+                "Valid location data example",
+                value={"device_id": "device123", "latitude": 41.0082, "longitude": 28.9784, "speed": 50.5},
                 request_only=True,
             ),
         ]

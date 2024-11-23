@@ -13,4 +13,4 @@ docker-compose -f docker/docker-compose.prod.yml exec -T web python manage.py mi
 docker-compose -f docker/docker-compose.prod.yml exec -T web python manage.py collectstatic --noinput
 
 # Clear cache
-docker-compose -f docker/docker-compose.prod.yml exec -T web python manage.py clear_cache 
+docker-compose -f docker/docker-compose.prod.yml exec -T web python manage.py clear_cache

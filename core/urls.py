@@ -14,24 +14,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 from django.contrib import admin
-from django.urls import path, include
 from django.http import HttpResponse
-from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
-from rest_framework import permissions
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+from django.urls import include, path
+
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
-
+from rest_framework import permissions
 
 # Swagger/OpenAPI şeması için view oluştur
 schema_view = get_schema_view(
     openapi.Info(
         title="Location Tracking API",
-        default_version='v1',
+        default_version="v1",
         description="Location Tracking API documentation",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@example.com"),
@@ -41,19 +40,19 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
+
 def metrics_view(request):
     return HttpResponse(generate_latest(), content_type=CONTENT_TYPE_LATEST)
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/v1/', include('locations.urls')),
-    path('metrics/', metrics_view, name='metrics'),
-    
-    # Token URLs
-    path('api/v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("api/v1/", include("locations.urls")),
+    path("metrics/", metrics_view, name="metrics"),
+    # Token URLs
+    path("api/v1/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/v1/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # Swagger URL'leri
-    path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('api/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path("api/swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
+    path("api/redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]

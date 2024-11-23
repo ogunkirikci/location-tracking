@@ -21,7 +21,7 @@ export function setup() {
     username: 'admin',
     password: 'admin'
   });
-  
+
   return { token: loginRes.json('access') };
 }
 

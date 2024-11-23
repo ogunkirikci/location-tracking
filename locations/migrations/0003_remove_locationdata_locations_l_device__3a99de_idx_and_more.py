@@ -6,24 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('locations', '0002_alter_locationdata_device_id_and_more'),
+        ("locations", "0002_alter_locationdata_device_id_and_more"),
     ]
 
     operations = [
         migrations.RemoveIndex(
-            model_name='locationdata',
-            name='locations_l_device__3a99de_idx',
+            model_name="locationdata",
+            name="locations_l_device__3a99de_idx",
         ),
         migrations.RemoveIndex(
-            model_name='locationdata',
-            name='locations_l_timesta_79c033_brin',
+            model_name="locationdata",
+            name="locations_l_timesta_79c033_brin",
         ),
         migrations.AddIndex(
-            model_name='locationdata',
-            index=models.Index(fields=['device_id', '-timestamp'], name='locations_l_device__ecd210_idx'),
+            model_name="locationdata",
+            index=models.Index(fields=["device_id", "-timestamp"], name="locations_l_device__ecd210_idx"),
         ),
         migrations.AddIndex(
-            model_name='locationdata',
-            index=models.Index(fields=['-timestamp'], name='locations_l_timesta_0e02f9_idx'),
+            model_name="locationdata",
+            index=models.Index(fields=["-timestamp"], name="locations_l_timesta_0e02f9_idx"),
         ),
     ]

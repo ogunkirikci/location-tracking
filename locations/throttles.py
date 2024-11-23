@@ -1,8 +1,9 @@
 from rest_framework.throttling import UserRateThrottle
 
+
 class LocationRateThrottle(UserRateThrottle):
-    rate = '100/hour'
-    scope = 'locations'
+    rate = "100/hour"
+    scope = "locations"
 
     def get_cache_key(self, request, view):
         if request.user.is_authenticated:
@@ -10,7 +11,4 @@ class LocationRateThrottle(UserRateThrottle):
         else:
             ident = self.get_ident(request)
 
-        return self.cache_format % {
-            'scope': self.scope,
-            'ident': ident
-        } 
+        return self.cache_format % {"scope": self.scope, "ident": ident}
