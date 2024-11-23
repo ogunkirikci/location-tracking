@@ -1,25 +1,25 @@
 FROM python:3.9-slim
 
-# Çalışma dizinini ayarla
+# Set working directory
 WORKDIR /app
 
-# Sistem bağımlılıklarını yükle
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-# Python bağımlılıklarını kopyala ve yükle
+# Copy Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Prometheus için geçici dizin oluştur
+# Create temporary directory for Prometheus
 RUN mkdir -p /tmp && chmod 777 /tmp
 
-# Uygulama kodunu kopyala
+# Copy application code
 COPY . .
 
-# Port ayarı
+# Set port
 EXPOSE 8000
 
-# Çalıştırma komutu
+# Run command
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

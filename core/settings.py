@@ -136,7 +136,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Celery Ayarları
+# Celery Settings
 CELERY_BROKER_URL = "redis://redis:6379/0"
 CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 CELERY_ACCEPT_CONTENT = ["json"]
@@ -144,7 +144,7 @@ CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TIMEZONE = "UTC"
 
-# Task'ların periyodik olarak çalışması için ayarlar
+# For Scheduled tasks settings
 CELERY_BEAT_SCHEDULE = {
     "cleanup-old-location-data": {
         "task": "cleanup_old_location_data",
@@ -153,10 +153,10 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-# CORS ayarlarını da ekleyelim
-CORS_ALLOW_ALL_ORIGINS = True  # Geliştirme ortamı için
+# CORS Settings
+CORS_ALLOW_ALL_ORIGINS = True  # For development environment
 
-# REST Framework ayarları
+# REST Framework settings
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
@@ -166,7 +166,7 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "locations.exceptions.custom_exception_handler",
 }
 
-# JWT ayarları
+# JWT settings
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
@@ -175,11 +175,11 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-# Rate limiting ayarları
+# Rate limiting settings
 RATELIMIT_USE_CACHE = "default"
 RATELIMIT_KEY_FUNCTION = "django_ratelimit.utils.get_client_ip"
 
-# Spectacular ayarları
+# Spectacular settings
 SPECTACULAR_SETTINGS = {
     "TITLE": "Location Tracking API",
     "DESCRIPTION": "API for tracking device locations with high-frequency data processing",
@@ -191,7 +191,7 @@ SPECTACULAR_SETTINGS = {
     ],
 }
 
-# Cache ayarları
+# Cache settings
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
@@ -205,17 +205,17 @@ CACHES = {
 # Cache timeout
 CACHE_TTL = 60 * 5  # 5 dakika
 
-# Cacheops ayarları
+# Cacheops settings
 CACHEOPS_REDIS = "redis://redis:6379/2"  # DB 2 for cacheops
 
 CACHEOPS = {
     "locations.*": {"ops": "all", "timeout": 60 * 15},  # 15 dakika cache
 }
 
-# Elasticsearch ayarları
+# Elasticsearch settings
 ELASTICSEARCH_DSL = {"default": {"hosts": os.getenv("ELASTICSEARCH_HOST", "http://elasticsearch:9200")}}
 
-# Elasticsearch bağlantısını başlat
+# Elasticsearch connection
 try:
     connections.create_connection(**ELASTICSEARCH_DSL["default"])
 except Exception as e:
@@ -223,7 +223,7 @@ except Exception as e:
     # Bağlantı hatası olsa bile uygulamanın çalışmasına izin ver
     pass
 
-# Logging ayarlarını basitleştir
+# Logging settings
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -238,16 +238,16 @@ LOGGING = {
     },
 }
 
-# Prometheus metrics için gerekli ayarlar
+# Prometheus metrics settings
 PROMETHEUS_METRICS_EXPORT_PORT = None
 PROMETHEUS_METRICS_EXPORT_ADDRESS = None
 PROMETHEUS_METRICS_ENABLED = True
 
-# Swagger ayarları
+# Swagger settings
 SWAGGER_SETTINGS = {
     "SECURITY_DEFINITIONS": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}},
     "USE_SESSION_AUTH": False,
 }
 
-# Prometheus ayarları
+# Prometheus settings
 PROMETHEUS_EXPORT_MIGRATIONS = False

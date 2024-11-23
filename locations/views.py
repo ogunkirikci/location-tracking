@@ -14,7 +14,7 @@ from django.views.decorators.cache import cache_page
 
 logger = logging.getLogger(__name__)
 
-# Metrikler
+# Metrics
 REQUEST_COUNTER = Counter(
     'location_api_requests_total',
     'Number of requests to location API endpoints',
@@ -39,7 +39,7 @@ RESPONSE_TIME = Histogram(
     ['method', 'endpoint']
 )
 
-# Metrik tanımları
+# Metric definitions
 REQUEST_LATENCY = Histogram(
     'django_http_requests_latency_seconds',
     'Request latency in seconds',

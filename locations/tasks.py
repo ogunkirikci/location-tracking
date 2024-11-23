@@ -11,5 +11,5 @@ def process_location_data(location_id):
     from .models import Location
 
     location = Location.objects.get(id=location_id)
-    # İşlem mantığı
+    # Process logic
     return f"Location {location_id} processed"

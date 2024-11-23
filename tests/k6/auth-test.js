@@ -9,15 +9,15 @@ export const options = {
 
 const BASE_URL = 'http://web:8000';
 
-// Test senaryosu
+// Test scenario
 export default function () {
-  // Metrics endpoint'ini test et
+  // Test metrics endpoint
   const metricsRes = http.get(`${BASE_URL}/metrics/`);
   check(metricsRes, {
     'metrics status is 200': (r) => r.status === 200,
   });
 
-  // Token al
+  // Get token
   const loginRes = http.post(`${BASE_URL}/api/v1/token/`, JSON.stringify({
     username: 'admin',
     password: 'admin'
@@ -38,7 +38,7 @@ export default function () {
       },
     };
 
-    // Locations endpoint'ini test et
+    // Test locations endpoint
     const locationsRes = http.get(`${BASE_URL}/api/v1/locations/`, params);
     check(locationsRes, {
       'locations status is 200': (r) => r.status === 200,

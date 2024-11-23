@@ -13,7 +13,7 @@ from .models import LocationData
 
 class LocationDataModelTests(TestCase):
     def setUp(self):
-        """Test verileri oluştur"""
+        """Create test data"""
         self.location_data = LocationData.objects.create(
             device_id="test_device", latitude=41.0082, longitude=28.9784, speed=50.5
         )
@@ -27,18 +27,18 @@ class LocationDataModelTests(TestCase):
         self.assertEqual(self.location_data.speed, 50.5)
 
     def test_location_str_representation(self):
-        """__str__ metodunun testi"""
+        """__str__ method test"""
         expected_str = f"Device test_device at ({self.location_data.latitude}, {self.location_data.longitude})"
         self.assertEqual(str(self.location_data), expected_str)
 
 
 class LocationDataAPITests(APITestCase):
     def setUp(self):
-        """Test verileri oluştur"""
-        # Birkaç test verisi oluştur
+        """Create test data"""
+        # Create a few test data
         self.test_data = {"device_id": "test_device", "latitude": 41.0082, "longitude": 28.9784, "speed": 50.5}
 
-        # Geçmiş tarihli veri
+        # Old date data
         self.old_location = LocationData.objects.create(
             device_id="test_device",
             latitude=41.0082,
@@ -47,7 +47,7 @@ class LocationDataAPITests(APITestCase):
             timestamp=timezone.now() - timedelta(days=1),
         )
 
-        # Yeni tarihli veri
+        # New date data
         self.new_location = LocationData.objects.create(
             device_id="test_device", latitude=41.0083, longitude=28.9785, speed=51.5
         )
@@ -64,15 +64,15 @@ class LocationDataAPITests(APITestCase):
         """GET /api/locations/latest/ testi"""
         url = "/api/locations/latest/"
 
-        # device_id olmadan istek
+        # Request without device_id
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-        # Doğru device_id ile istek
+        # Request with correct device_id
         response = self.client.get(f"{url}?device_id=test_device")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        # En son eklenen verinin döndüğünü kontrol et
+        # Check if the latest added data is returned
         self.assertEqual(float(response.data["latitude"]), 41.0083)
         self.assertEqual(float(response.data["longitude"]), 28.9785)
 
@@ -80,7 +80,7 @@ class LocationDataAPITests(APITestCase):
         """GET /api/locations/date_range/ testi"""
         url = "/api/locations/date_range/"
 
-        # Geçerli tarih aralığı oluştur
+        # Create a valid date range
         end_date = timezone.now()
         start_date = end_date - timedelta(days=2)
 
@@ -95,13 +95,13 @@ class LocationDataAPITests(APITestCase):
         self.assertTrue(len(response.data) >= 2)
 
     def test_invalid_data_creation(self):
-        """Geçersiz veri gönderimi testi"""
+        """Invalid data sending test"""
         url = "/api/locations/"
 
-        # Geçersiz enlem değeri
+        # Invalid latitude value
         invalid_latitude_data = {
             "device_id": "test_device",
-            "latitude": 200,  # Geçersiz enlem
+            "latitude": 200,  # Invalid latitude
             "longitude": 28.9784,
             "speed": 50.5,
         }
@@ -110,11 +110,11 @@ class LocationDataAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("latitude", response.data.get("details", {}))
 
-        # Geçersiz boylam değeri
+        # Invalid longitude value
         invalid_longitude_data = {
             "device_id": "test_device",
             "latitude": 41.0082,
-            "longitude": -200,  # Geçersiz boylam
+            "longitude": -200,  # Invalid longitude
             "speed": 50.5,
         }
 
@@ -122,12 +122,12 @@ class LocationDataAPITests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("longitude", response.data.get("details", {}))
 
-        # Geçersiz hız değeri
+        # Invalid speed value
         invalid_speed_data = {
             "device_id": "test_device",
             "latitude": 41.0082,
             "longitude": 28.9784,
-            "speed": -10,  # Geçersiz hız
+            "speed": -10,  # Invalid speed
         }
 
         response = self.client.post(url, invalid_speed_data, format="json")

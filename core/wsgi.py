@@ -15,12 +15,12 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 
 from prometheus_client import GC_COLLECTOR, PLATFORM_COLLECTOR, PROCESS_COLLECTOR, REGISTRY
 
-# Varsayılan kolektörleri kaldır
+# Remove default collectors
 REGISTRY.unregister(PROCESS_COLLECTOR)
 REGISTRY.unregister(PLATFORM_COLLECTOR)
 REGISTRY.unregister(GC_COLLECTOR)
 
-# Mevcut tüm kolektörleri temizle
+# Clear all existing collectors
 for collector in list(REGISTRY._collector_to_names.keys()):
     REGISTRY.unregister(collector)
 

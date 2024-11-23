@@ -21,7 +21,7 @@ class LocationDataSerializer(serializers.ModelSerializer):
         ]
     )
     def validate_latitude(self, value):
-        """Enlem değeri -90 ile +90 arasında olmalıdır"""
+        """Latitude must be between -90 and 90 degrees"""
         try:
             float_value = float(value)
             if float_value < -90 or float_value > 90:
@@ -31,7 +31,7 @@ class LocationDataSerializer(serializers.ModelSerializer):
         return value
 
     def validate_longitude(self, value):
-        """Boylam değeri -180 ile +180 arasında olmalıdır"""
+        """Longitude must be between -180 and 180 degrees"""
         try:
             float_value = float(value)
             if float_value < -180 or float_value > 180:
@@ -41,7 +41,7 @@ class LocationDataSerializer(serializers.ModelSerializer):
         return value
 
     def validate_speed(self, value):
-        """Hız değeri pozitif olmalıdır"""
+        """Speed must be positive"""
         try:
             if float(value) < 0:
                 raise serializers.ValidationError("Speed cannot be negative")
@@ -50,7 +50,7 @@ class LocationDataSerializer(serializers.ModelSerializer):
         return value
 
     def validate_device_id(self, value):
-        """Device ID boş olmamalıdır"""
+        """Device ID cannot be empty"""
         if not value or not value.strip():
             raise serializers.ValidationError("Device ID cannot be empty")
         return value.strip()

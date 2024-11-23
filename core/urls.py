@@ -26,7 +26,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-# Swagger/OpenAPI şeması için view oluştur
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Location Tracking API",
@@ -52,7 +52,7 @@ urlpatterns = [
     # Token URLs
     path("api/v1/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/v1/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    # Swagger URL'leri
+    # Swagger URLs
     path("api/swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("api/redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]

@@ -2,7 +2,7 @@ import time
 
 from prometheus_client import Counter, Histogram
 
-# Metrikler
+# Metrics
 http_requests_total = Counter("http_requests_total", "Total HTTP requests", ["method", "endpoint", "status"])
 
 http_request_duration_seconds = Histogram(
