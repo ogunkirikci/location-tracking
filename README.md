@@ -27,7 +27,7 @@ Location Tracking API, kullanıcıların konum bilgilerini takip etmek ve yönet
 
 1. Projeyi klonlayın:
 bash
-git clone https://github.com/your-username/location-tracking.git
+git clone https://github.com/ogunkirikci/location-tracking.git
 cd location-tracking
 2. Docker container'larını başlatın:
 bash
